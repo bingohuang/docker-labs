@@ -1,20 +1,21 @@
 <!doctype html>
 <html ng-app="DockerPlay" ng-controller="PlayController">
     <head>
-        <title>Docker Playground</title>
+        <title>Docker 在线实验室</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons" />
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
         <link rel="stylesheet" href="/assets/xterm.css" />
-	<link rel="stylesheet" href="/assets/xterm-addons/fullscreen.css" />
+	    <link rel="stylesheet" href="/assets/xterm-addons/fullscreen.css" />
         <link rel="stylesheet" href="/assets/style.css" />
-        <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-            ga('create', 'UA-89019737-1', 'auto');
-            ga('send', 'pageview');
-        </script>
+        <!--<script>-->
+            <!--(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){-->
+            <!--(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),-->
+            <!--m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)-->
+            <!--})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');-->
+            <!--ga('create', 'UA-89019737-1', 'auto');-->
+            <!--ga('send', 'pageview');-->
+        <!--</script>-->
+        <script src='/assets/baidu-tongji.js'></script>
     </head>
     <body>
 
@@ -23,7 +24,7 @@
               <md-content flex layout-padding ng-if="!instances.length">
                 <div layout="column" layout-align="top center">
                   <p>
-                    <strong>Your session has expired.</strong>
+                      <strong>你的实验室关门了</strong>
                   </p>
                 </div>
                 <div flex></div>
@@ -31,7 +32,7 @@
             </section>
 
             <section ng-if="!connected" class="disconnected" layout="row" layout-align="center center">
-                <h1 class="md-headline">No connection to server. Reconnecting...</h1>
+                <h1 class="md-headline">和实验室管理员失去联系，呼叫中...</h1>
                 <md-progress-circular class="md-hue-2" md-diameter="20px"></md-progress-circular>
             </section>
 
@@ -42,11 +43,14 @@
                   md-is-locked-open="$mdMedia('gt-sm')"
                   md-whiteframe="4" layout="column">
 
+                  <a href="http://163yun.com" class="m-logo" target="_blank">
+                      <center><img src="/assets/163yun-logo.png" alt="网易云" title="网易云" width="160px"></center>
+                  </a>
                 <md-toolbar class="md-theme-indigo">
                   <span class="clock">{{ttl}}</span>
-                  <md-button class="md-warn md-raised" ng-click="closeSession()">Close session</md-button>
+                  <md-button class="md-warn md-raised" ng-click="closeSession()">关闭实验室</md-button>
                   <div class="md-toolbar-tools">
-                    <h1 class="md-toolbar-tools">Instances</h1>
+                    <h1 class="md-toolbar-tools">工作台</h1>
                     <settings-icon></settings-icon>
                   </div>
                 </md-toolbar>
@@ -62,11 +66,15 @@
               </md-list>
                 </md-content>
 
+                  <div class="footer__copyright">
+                      <b>© 2017 <a class="footer__link" href="https://163yun.com/" target="_blank">163yun</a> & <a class="footer__link" href="https://github.com/bingohuang" target="_blank">Bingo Huang</a></b><br><br>
+                  </div>
+
               </md-sidenav>
               <md-content flex layout-padding ng-if="!instances.length">
                 <div layout="column" layout-align="top center">
-                  <p>Add instances to your playground.</p>
-                  <p><strong>Sessions and all their instances are deleted after {{ttl}} hours.</strong></p>
+                    <p>在你的实验室中添加工作台（独立的 Docker 环境）</p>
+                    <p><strong>当前实验室和所属工作台将在 {{ttl}} 后删除</strong></p>
                 </div>
 
                 <div flex></div>
@@ -92,7 +100,7 @@
                           </div>
                           <div layout-gt-sm="row">
                              <md-input-container class="md-block" flex-gt-sm>
-                               <label>Memory</label>
+                               <label>MEM</label>
                                <input ng-model="instance.mem" type="text" readonly="readonly">
                              </md-input-container>
                              <md-input-container class="md-block" flex-gt-sm>
@@ -116,10 +124,10 @@
         <script type="text/ng-template" id="settings-modal.html">
             <md-toolbar>
                 <div class="md-toolbar-tools">
-                    <h2>Settings</h2>
+                    <h2>设置</h2>
                     <span flex></span>
                     <md-button class="md-icon-button" ng-click="$ctrl.close()">
-                        <md-icon class="material-icon" aria-label="Close dialog">close</md-icon>
+                        <md-icon class="material-icon" aria-label="Close dialog">✘</md-icon>
                     </md-button>
                 </div>
                 </md-toolbar>
@@ -129,7 +137,7 @@
                     <div layout="row">
                         <div flex="50">
                             <md-input-container class="md-block" flex-gt-sm>
-                                <label>Keyboard Shortcut Preset</label>
+                                <label>快捷键预设</label>
                                 <md-select ng-model="$ctrl.currentShortcutConfig" ng-model-options="{getterSetter: true}" placeholder="Keyboard shortcut prefix">
                                     <md-option ng-repeat="preset in $ctrl.keyboardShortcutPresets" value="{{preset}}">
                                         {{preset.name}}
@@ -140,9 +148,9 @@
                         <div flex="10"></div>
                         <div flex="40">
                             <div ng-if="$ctrl.selectedShortcutPreset">
-                                Preset details:
+                                预设详情:
                                 <ul>
-                                    <li ng-if="$ctrl.selectedShortcutPreset.presets.length == 0">No presets defined</li>
+                                    <li ng-if="$ctrl.selectedShortcutPreset.presets.length == 0">无</li>
                                     <li ng-repeat="preset in $ctrl.selectedShortcutPreset.presets">
                                         <code>{{preset.command}}</code> - {{preset.description}}
                                     </li>
@@ -180,7 +188,7 @@
                 <md-dialog-actions layout="row">
                     <span flex></span>
                     <md-button ng-click="$ctrl.close()">
-                        Close
+                        关闭
                     </md-button>
                 </md-dialog-actions>
         </script>

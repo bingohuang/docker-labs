@@ -5,11 +5,11 @@
 
     // Automatically redirects user to a new session when bypassing captcha.
     // Controller keeps code/logic separate from the HTML
-    app.controller("BypassController", ['$scope', '$log', '$http', '$location', '$timeout', function($scope, $log, $http, $location, $timeout) {
-        setTimeout(function() {
-            document.getElementById("welcomeFormBypass").submit();
-        }, 500);
-    }]);
+    // app.controller("BypassController", ['$scope', '$log', '$http', '$location', '$timeout', function($scope, $log, $http, $location, $timeout) {
+    //     setTimeout(function() {
+    //         document.getElementById("welcomeFormBypass").submit();
+    //     }, 500);
+    // }]);
 
     app.controller('PlayController', ['$scope', '$log', '$http', '$location', '$timeout', '$mdDialog', '$window', 'TerminalService', 'KeyboardShortcutService', 'InstanceService', function($scope, $log, $http, $location, $timeout, $mdDialog, $window, TerminalService, KeyboardShortcutService, InstanceService) {
         $scope.sessionId = window.location.pathname.replace('/p/', '');
@@ -20,8 +20,8 @@
         $scope.ttl = '--:--:--';
         $scope.connected = true;
         $scope.isInstanceBeingCreated = false;
-        $scope.newInstanceBtnText = '+ Add new instance';
-        $scope.deleteInstanceBtnText = 'Delete';
+        $scope.newInstanceBtnText = '+ 创建工作台';
+        $scope.deleteInstanceBtnText = '删除工作台';
         $scope.isInstanceBeingDeleted = false;
         
         var selectedKeyboardShortcuts = KeyboardShortcutService.getCurrentShortcuts();
@@ -44,7 +44,7 @@
                     .clickOutsideToClose(true)
                     .title(title)
                     .textContent(content)
-                    .ok('Got it!')
+                    .ok('收到！')
             );
         }
 
@@ -83,7 +83,7 @@
                 $scope.showInstance(i);
             }, function(response) {
                 if (response.status == 409) {
-                    $scope.showAlert('Max instances reached', 'Maximum number of instances reached')
+                    $scope.showAlert('工作台到达上限', '工作台最大个数是 5，已达上限')
                 }
             }).finally(function() {
                 updateNewInstanceBtnState(false);
@@ -120,7 +120,7 @@
                 });
 
                 socket.on('session end', function() {
-                    $scope.showAlert('Session timed out!', 'Your session has expired and all of your instances have been deleted.', '#sessionEnd')
+                    $scope.showAlert('实验室关门啦!', '你的实验室关门了，所有工作台都已删除。', '#sessionEnd')
                     $scope.isAlive = false;
                 });
 
@@ -178,7 +178,7 @@
                 if (inst) $scope.showInstance(inst);
             }, function(response) {
                 if (response.status == 404) {
-                    document.write('session not found');
+                    document.write('该实验室没找到');
                     return
                 }
             });
@@ -291,20 +291,20 @@
 
         function updateNewInstanceBtnState(isInstanceBeingCreated) {
             if (isInstanceBeingCreated === true) {
-                $scope.newInstanceBtnText = '+ Creating...';
+                $scope.newInstanceBtnText = '+ 创建中...';
                 $scope.isInstanceBeingCreated = true;
             } else {
-                $scope.newInstanceBtnText = '+ Add new instance';
+                $scope.newInstanceBtnText = '+ 创建工作台';
                 $scope.isInstanceBeingCreated = false;
             }
         }
 
         function updateDeleteInstanceBtnState(isInstanceBeingDeleted) {
             if (isInstanceBeingDeleted === true) {
-                $scope.deleteInstanceBtnText = 'Deleting...';
+                $scope.deleteInstanceBtnText = '删除中...';
                 $scope.isInstanceBeingDeleted = true;
             } else {
-                $scope.deleteInstanceBtnText = 'Delete';
+                $scope.deleteInstanceBtnText = '删除工作台';
                 $scope.isInstanceBeingDeleted = false;
             }
         }
@@ -424,14 +424,17 @@
 
         function getAvailablePresets() {
             return [
-                { name : "None", presets : [
-                        { description : "Toggle terminal fullscreen", command : "Alt+enter", altKey : true, keyCode : 13, action : function(context) { TerminalService.toggleFullscreen(context.terminal, resizeFunc); }}
-		] },
+                {
+                    name : "None",
+                    presets : [
+                        { description : "全屏终端", command : "Alt+enter", altKey : true, keyCode : 13, action : function(context) { TerminalService.toggleFullscreen(context.terminal, resizeFunc); }}
+                    ]
+                },
                 { 
                     name : "Mac OSX",
                     presets : [
-                        { description : "Clear terminal", command : "Cmd+K", metaKey : true, keyCode : 75, action : function(context) { context.terminal.clear(); }},
-                        { description : "Toggle terminal fullscreen", command : "Alt+enter", altKey : true, keyCode : 13, action : function(context) { TerminalService.toggleFullscreen(context.terminal, resizeFunc); }}
+                        { description : "清空终端", command : "Cmd+K", metaKey : true, keyCode : 75, action : function(context) { context.terminal.clear(); }},
+                        { description : "全屏终端", command : "Alt+enter", altKey : true, keyCode : 13, action : function(context) { TerminalService.toggleFullscreen(context.terminal, resizeFunc); }}
                     ]
                 }
             ]

@@ -49,3 +49,9 @@ md-input-container .md-errors-spacer {
 .stats {
     min-height: 230px;
 }
+
+.footer__copyright {
+    font-size: 14px;
+    position:absolute;
+    bottom: 0;
+}

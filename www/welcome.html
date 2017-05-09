@@ -2,15 +2,16 @@
 <!doctype html>
 <html>
     <head>
-        <title>Docker Playground</title>
+        <title>Docker 在线实验室</title>
 	    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
         <link rel="stylesheet" href="/assets/style.css" />
         <script src='https://www.google.com/recaptcha/api.js'></script>
+        <script src='/assets/baidu-tongji.js'></script>
     </head>
     <body class="welcome">
         <div>
-            <h1>Welcome!</h1>
-            <h2>Before starting we need to verify you are a human</h2>
+            <h1>欢迎来到 Docker 在线实验室!</h1>
+            <h2>请先确认你不是机器人哦！</h2>
             <form id="welcomeForm" method="POST" action="/">
                 <div id="recaptcha" class="g-recaptcha" data-callback="iAmHuman" data-sitekey="{{.}}"></div>
                 <input type="hidden" name="session-duration" value="4h"/>

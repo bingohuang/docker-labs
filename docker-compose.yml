@@ -23,6 +23,8 @@ services:
             - $GOPATH/src:/go/src
         environment:
             GOOGLE_RECAPTCHA_DISABLED: "true"
+            DIND_IMAGE: "hub.c.163.com/bingohuang/dind:17.04.0-ce-vfs"
+            EXPIRY: "3h"
     pwd2:
         # pwd daemon container always needs to be named this way
         container_name: pwd2
@@ -37,3 +39,5 @@ services:
             - $GOPATH/src:/go/src
         environment:
             GOOGLE_RECAPTCHA_DISABLED: "true"
+            DIND_IMAGE: "hub.c.163.com/bingohuang/dind:17.04.0-ce-vfs"
+            EXPIRY: "3h"
