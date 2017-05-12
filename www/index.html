@@ -137,7 +137,7 @@
                     <div layout="row">
                         <div flex="50">
                             <md-input-container class="md-block" flex-gt-sm>
-                                <label>快捷键预设</label>
+                                <label>终端快捷键</label>
                                 <md-select ng-model="$ctrl.currentShortcutConfig" ng-model-options="{getterSetter: true}" placeholder="Keyboard shortcut prefix">
                                     <md-option ng-repeat="preset in $ctrl.keyboardShortcutPresets" value="{{preset}}">
                                         {{preset.name}}
@@ -148,7 +148,6 @@
                         <div flex="10"></div>
                         <div flex="40">
                             <div ng-if="$ctrl.selectedShortcutPreset">
-                                预设详情:
                                 <ul>
                                     <li ng-if="$ctrl.selectedShortcutPreset.presets.length == 0">无</li>
                                     <li ng-repeat="preset in $ctrl.selectedShortcutPreset.presets">
@@ -161,7 +160,7 @@
                     <div layout="row">
                         <div flex="50">
                             <md-input-container class="md-block" flex-gt-sm>
-                                <label>Instance Image</label>
+                                <label>工作台镜像</label>
                                 <md-select ng-model="$ctrl.currentDesiredInstanceImage" ng-model-options="{getterSetter: true}" placeholder="New Instance Image">
                                     <md-option ng-repeat="image in $ctrl.instanceImages" value="{{image}}">
                                         {{ image }}
@@ -173,7 +172,7 @@
                     <div layout="row">
                         <div flex="50">
                             <md-input-container class="md-block" flex-gt-sm>
-                                <label>Terminal Font Size</label>
+                                <label>终端字体</label>
                                 <md-select ng-model="$ctrl.currentTerminalFontSize" ng-model-options="{getterSetter: true}">
                                     <md-option ng-repeat="size in $ctrl.terminalFontSizes" value="{{size}}">
                                         {{ size }}
