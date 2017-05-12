@@ -31,12 +31,16 @@ COPY [".vimrc",".profile", ".inputrc", ".gitconfig", "./root/"]
 COPY ["motd", "/etc/motd"]
 COPY ["daemon.json", "/etc/docker/"]
 
-ARG docker_storage_driver=overlay2
+# ARG docker_storage_driver=overlay2
+ARG docker_storage_driver=vfs
 
 ENV DOCKER_STORAGE_DRIVER=$docker_storage_driver
 
 # Move to our home
 WORKDIR /root
+
+# Add contact info
+RUN echo "Happy to contact me@bingohuang.com" >> /etc/issue
 
 # Remove IPv6 alias for localhost and start docker in the background ...
 CMD cat /etc/hosts >/etc/hosts.bak && \

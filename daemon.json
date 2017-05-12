@@ -6,5 +6,6 @@
     "insecure-registries": ["127.0.0.1"],
     "hosts": ["unix:///var/run/docker.sock", "tcp://0.0.0.0:2375"],
     "storage-driver": "DOCKER_STORAGE_DRIVER",
-    "dns": ["PWD_IP_ADDRESS", "8.8.8.8"]
+    "dns": ["PWD_IP_ADDRESS", "8.8.8.8"],
+    "registry-mirrors": ["http://34557c30.m.daocloud.io", "https://jly0jn8e.mirror.aliyuncs.com", "http://hub-mirror.c.163.com"]
 }
