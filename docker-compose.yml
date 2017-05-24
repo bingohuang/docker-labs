@@ -2,7 +2,7 @@ version: '2'
 services:
     haproxy:
         container_name: proxy
-        image: haproxy
+        image: hub.c.163.com/library/haproxy:1.7.5
         ports:
             - "80:8080"
             - "443:8443"
@@ -13,9 +13,9 @@ services:
         # pwd daemon container always needs to be named this way
         container_name: pwd1
         # use the latest golang image
-        image: golang
+        image: hub.c.163.com/library/golang:1.8.2
         # go to the right place and starts the app
-        command: /bin/sh -c 'cd /go/src/github.com/play-with-docker/play-with-docker; go run api.go -save ./pwd/sessions1 -name pwd1 -cname host1'
+        command: /bin/sh -c 'cd /go/src/github.com/bingohuang/docker-labs; go run api.go -save ./pwd/sessions1 -name pwd1 -cname host1'
         volumes:
             # since this app creates networks and launches containers, we need to talk to docker daemon
             - /var/run/docker.sock:/var/run/docker.sock
@@ -29,9 +29,9 @@ services:
         # pwd daemon container always needs to be named this way
         container_name: pwd2
         # use the latest golang image
-        image: golang
+        image: hub.c.163.com/library/golang:1.8.2
         # go to the right place and starts the app
-        command: /bin/sh -c 'cd /go/src/github.com/play-with-docker/play-with-docker; go run api.go -save ./pwd/sessions2 -name pwd2 -cname host2'
+        command: /bin/sh -c 'cd /go/src/github.com/bingohuang/docker-labs; go run api.go -save ./pwd/sessions2 -name pwd2 -cname host2'
         volumes:
             # since this app creates networks and launches containers, we need to talk to docker daemon
             - /var/run/docker.sock:/var/run/docker.sock
