@@ -2,3 +2,5 @@ play-with-docker
 node_modules
 
 .idea
+
+docker-labs*
