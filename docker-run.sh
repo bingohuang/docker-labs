@@ -18,3 +18,5 @@ docker run -d \
 -e EXPIRY="3h" \
 --name docker-labs \
 hub.c.163.com/bingohuang/docker-labs:$labs_version
+
+docker logs -f docker-labs

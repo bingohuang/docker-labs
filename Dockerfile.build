@@ -10,6 +10,9 @@ ADD docker-labs_linux_amd64 /app/docker-labs
 
 WORKDIR /app
 
-CMD ["./docker-labs"]
-
 EXPOSE 3000
+
+ENTRYPOINT ["./docker-labs"]
+
+CMD ["-name", "docker-labs"]
+
