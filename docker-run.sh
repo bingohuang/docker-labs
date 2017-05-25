@@ -15,5 +15,6 @@ docker run -d \
 --volume /var/run/docker.sock:/var/run/docker.sock \
 -e GOOGLE_RECAPTCHA_DISABLED="true" \
 -e DIND_IMAGE="hub.c.163.com/bingohuang/dind:$dind_version"  \
--e EXPIRY="3h"
---name docker-labs  hub.c.163.com/bingohuang/docker-labs:$labs_version
+-e EXPIRY="3h" \
+--name docker-labs \
+hub.c.163.com/bingohuang/docker-labs:$labs_version
